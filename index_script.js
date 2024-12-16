@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Check if userID exists in localStorage
     if (localStorage.getItem('userID')) {
-        window.location.href = 'login.html'; // Redirect to login.html if userID exists
+        window.location.href = 'Login.html'; // Redirect to login.html if userID exists
     }
 
     const sidenavElement = document.getElementById('sidenav');
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.message === 'Login successful') {
                     localStorage.setItem('userID', data.userID);
-                    window.location.href = 'login.html';
+                    window.location.href = 'Login.html';
                 } else {
                     alert(data.message);
                 }
