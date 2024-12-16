@@ -16,7 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const googleLoginbtn = document.getElementById('google-login-btn');
 
     const IP = "192.168.3.5";
-    localStorage.setItem('IP',IP);
+
+    // Check if the IP is not already in localStorage
+    if (!localStorage.getItem('IP')) {
+        localStorage.setItem('IP', IP);
+    }
+    
 
     // Set initial styles for elements
     sidenavElement.style.right = "-40%";
