@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     const chooseOption = document.getElementById("datepicker");
 
     const IP = "192.168.3.5";
-    alert(localStorage.getItem('userID'));
 
     // Function to check the orientation and adjust the layout for phones only
     function checkOrientation() {
@@ -697,6 +696,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     async function Historical_Data() {
         // Retrieve userID from localStorage
         const userID = localStorage.getItem('userID');
+            alert(localStorage.getItem('userID'));
     
         if (!userID) {
             console.error('Missing userID in localStorage');
