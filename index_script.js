@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginSubmitBtn = document.querySelector('#loginForm button[type="submit"]');
     const googleLoginbtn = document.getElementById('google-login-btn');
 
-    const IP = "192.168.1.59";
+    const IP = "192.168.101.17";
 
     // Set initial styles for elements
     sidenavElement.style.right = "-40%";
@@ -109,20 +109,23 @@ document.addEventListener('DOMContentLoaded', function() {
             const username = document.getElementById('newUsername').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('newPassword').value;
-
+    
             // Send registration request to server
-            fetch('http://${IP}:8081/register', {
+            fetch(`http://${IP}:8081/register`, { // Use backticks for string interpolation
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ username, email, password })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return response.json();
+            })
             .then(data => {
                 if (data.message === 'User registered successfully') {
                     alert('Registration successful');
-                    openLoginForm();
+                    openLoginForm(); // Ensure this function is defined
                 } else {
                     alert(data.message);
                 }
@@ -132,28 +135,28 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+    
     // Handle form submission for login
     if (loginSubmitBtn) {
         loginSubmitBtn.addEventListener('click', function(event) {
             event.preventDefault();
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-
-            // Send login request to server
-            fetch('http://${IP}:8081/login', {
+    
+            fetch(`http://${IP}:8081/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ username, password })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return response.json();
+            })
             .then(data => {
                 if (data.message === 'Login successful') {
-                    // Store the userID in localStorage
                     localStorage.setItem('userID', data.userID);
-
-                    // Redirect to another page or show user dashboard
                     window.location.href = 'login.html';
                 } else {
                     alert(data.message);
