@@ -696,7 +696,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     async function Historical_Data() {
         // Retrieve userID from localStorage
         const userID = localStorage.getItem('userID');
-            alert(localStorage.getItem('userID'));
     
         if (!userID) {
             console.error('Missing userID in localStorage');
