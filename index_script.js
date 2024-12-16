@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
     
-            fetch(`http://${IP}:8081/login`, {
+            fetch(`http://192.168.101.17:8081/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
