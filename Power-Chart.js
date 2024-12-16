@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    const IP = "localhost";
+    const IP = "https://93ea-203-80-164-104.ngrok-free.app";
 
     let currentChart;
     const userID = localStorage.getItem('userID');
