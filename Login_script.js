@@ -25,7 +25,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     const confirmText = document.getElementById("confirm-date-btn");
     const chooseOption = document.getElementById("datepicker");
 
-    const IP = "192.168.3.5";
+
+
+    // Check if the IP is not already in localStorage
+    if (!localStorage.getItem('IP')) {
+        const IP = "192.168.3.5";
+        localStorage.setItem('IP', IP);
+    }
 
     // Function to check the orientation and adjust the layout for phones only
     function checkOrientation() {
@@ -92,6 +98,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Set the date picker's default value to today's date
     datePicker.value = getTodayDate();
 
+    const IP = localStorage.getItem('IP');
     const userID = localStorage.getItem('userID');
     let originalUsername = nameDisplay.innerText;
     let originalEmail = emailDiv.innerText;
@@ -122,6 +129,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Function to open the confirm form
     function openConfirmForm(callerForm) {
         const confirmFormContainer = document.getElementById('confirmForm');
+        const IP = localStorage.getItem('IP');
         const userID = localStorage.getItem('userID');
 
         // Store the calling form so we can refer to it later
@@ -572,6 +580,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Populate data on the page
     async function populateData() {
         // Retrieve userID and stationID from localStorage
+        const IP = localStorage.getItem('IP');
         const userID = localStorage.getItem('userID');
         const stationID = localStorage.getItem('stationID');
 
@@ -695,6 +704,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     
     async function Historical_Data() {
         // Retrieve userID from localStorage
+        const IP = localStorage.getItem('IP');
         const userID = localStorage.getItem('userID');
     
         if (!userID) {
@@ -834,6 +844,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Fetch and render historical data based on the selected date
     async function fetchHistoricalData(selectedDate) {
         // Retrieve userID from localStorage
+        const IP = localStorage.getItem('IP');
         const userID = localStorage.getItem('userID');
     
         if (!userID) {
@@ -1116,6 +1127,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         // Handle the 'Yes' button
         document.getElementById('confirmYes').addEventListener('click', function() {
             // Proceed with the action if user confirms
+            const IP = localStorage.getItem('IP');
             const stationID = localStorage.getItem('stationID'); // Ensure stationID is available
             const url = `http://${IP}:8081/stationProcess?stationID=${stationID}&chargeStatuse=stop`;
     
@@ -1432,6 +1444,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     const qrCode = jsQR(context.getImageData(0, 0, canvas.width, canvas.height).data, canvas.width, canvas.height);
                     if (qrCode) {
                         console.log("QR Code data: ", qrCode.data);
+                        const IP = localStorage.getItem('IP');
                         const stationID = getStationIDFromScanURL(qrCode.data);
                         if (stationID) {
                             handleStationID(stationID);
