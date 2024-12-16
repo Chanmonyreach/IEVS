@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.getItem('IP');
     
             // Send registration request to server
-            fetch(`http://${IP}:8081/register`, { // Use backticks for string interpolation
+            fetch(`https://${IP}:8081/register`, { // Use backticks for string interpolation
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const password = document.getElementById('password').value;
             localStorage.getItem('IP');
     
-            fetch(`http://${IP}:8081/login`, {
+            fetch(`https://${IP}:8081/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
