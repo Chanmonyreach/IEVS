@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const confirmText = document.getElementById("confirm-date-btn");
     const chooseOption = document.getElementById("datepicker");
 
-    const IP = "https://93ea-203-80-164-104.ngrok-free.app";
+    const IP = "https://c14e-203-80-164-104.ngrok-free.app";
 
     // Function to check the orientation and adjust the layout for phones only
     function checkOrientation() {
