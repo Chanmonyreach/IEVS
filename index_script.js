@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginSubmitBtn = document.querySelector('#loginForm button[type="submit"]');
     const googleLoginbtn = document.getElementById('google-login-btn');
 
-    const IP = "localhost";
+    const IP = "192.168.1.59";
 
     // Set initial styles for elements
     sidenavElement.style.right = "-40%";
