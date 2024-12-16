@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
     ctx.fillText('Charge Power: ' + value + '%', centerX, centerY);
   }
 
-  const IP = "localhost";
+  const IP = "https://93ea-203-80-164-104.ngrok-free.app";
 
   // Get userID and stationID from localStorage
   const userID = localStorage.getItem('userID');
