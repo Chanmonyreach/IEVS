@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const confirmText = document.getElementById("confirm-date-btn");
     const chooseOption = document.getElementById("datepicker");
 
-    const IP = "http://192.168.3.5:8081";
+    const IP = "192.168.3.5";
 
     // Function to check the orientation and adjust the layout for phones only
     function checkOrientation() {
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
                 try {
                     // Make the request to the server with userID and password
-                    const response = await fetch(`${IP}/confirmuser?userID=${userID}&password=${password}`);
+                    const response = await fetch(`http://${IP}:8081/confirmuser?userID=${userID}&password=${password}`);
 
                     if (!response.ok) {
                         throw new Error('Failed to confirm user');
@@ -443,7 +443,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                             const BankNumber = document.getElementById('BankNumber').value;
 
                             // Make the request to save the bank info
-                            const bankInfoURL = `${IP}/bankinfo?userID=${userID}&BankHolder=${BankHolder}&BankNumber=${BankNumber}`;
+                            const bankInfoURL = `http://${IP}:8081/bankinfo?userID=${userID}&BankHolder=${BankHolder}&BankNumber=${BankNumber}`;
     
                             fetch(bankInfoURL, {
                                 method: 'GET',
@@ -509,7 +509,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         // Handle API request for saving changes
         try {
-            const response = await fetch("${IP}/updateUserData", {
+            const response = await fetch("http://${IP}:8081/updateUserData", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -587,7 +587,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         // If stationID is provided, fetch station data
         if (stationID) {
             try {
-                const response = await fetch(`${IP}/requestData?stationID=${stationID}`);
+                const response = await fetch(`http://${IP}:8081/requestData?stationID=${stationID}`);
                 if (!response.ok) throw new Error('Failed to fetch station data from the API');
 
                 // Parse JSON response
@@ -620,7 +620,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         // If userID is provided, fetch user data
         if (userID) {
             try {
-                const response = await fetch(`${IP}/requestData?userID=${userID}`);
+                const response = await fetch(`http://${IP}:8081/requestData?userID=${userID}`);
                 if (!response.ok) throw new Error('Failed to fetch user data from the API');
 
                 const userData = await response.json();
@@ -652,8 +652,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             try {
                 // Fetch both user and station data concurrently
                 const [userResponse, stationResponse] = await Promise.all([
-                    fetch(`${IP}/requestData?userID=${userID}`),
-                    fetch(`${IP}/requestData?stationID=${stationID}`)
+                    fetch(`http://${IP}:8081/requestData?userID=${userID}`),
+                    fetch(`http://${IP}:8081/requestData?stationID=${stationID}`)
                 ]);
         
                 if (!userResponse.ok) throw new Error('Failed to fetch user data from the API');
@@ -704,7 +704,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     
         try {
             // Request data from the API to get the user's dates
-            const response = await fetch(`${IP}/recordeData?userID=${userID}`);
+            const response = await fetch(`http://${IP}:8081/recordeData?userID=${userID}`);
             if (!response.ok){
                 return;
             }
@@ -734,7 +734,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     // Loop through each date and fetch the corresponding data
                     for (let i = 0; i < dates.length; i++) {
                         const currentDate = dates[i];
-                        const Dateresponse = await fetch(`${IP}/recordeData?userID=${userID}&date=${currentDate}`);
+                        const Dateresponse = await fetch(`http://${IP}:8081/recordeData?userID=${userID}&date=${currentDate}`);
                         if (!Dateresponse.ok) throw new Error(`Failed to fetch data for date ${currentDate}`);
     
                         const Record_value = await Dateresponse.json();
@@ -843,7 +843,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     
         try {
             // Request data from the API to get the user's dates
-            const response = await fetch(`${IP}/recordeData?userID=${userID}`);
+            const response = await fetch(`http://${IP}:8081/recordeData?userID=${userID}`);
             if (!response.ok){
                 return;
             }
@@ -881,7 +881,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                         // Compare current date (YY/MM/DD) with selected date (YY/MM/DD)
                         if (currentFormattedDate === selectedFormattedDate) {
                             // Fetch and process data for the selected date
-                            const Dateresponse = await fetch(`${IP}/recordeData?userID=${userID}&date=${currentDate}`);
+                            const Dateresponse = await fetch(`http://${IP}:8081/recordeData?userID=${userID}&date=${currentDate}`);
                             if (!Dateresponse.ok) throw new Error(`Failed to fetch data for date ${currentDate}`);
                 
                             const Record_value = await Dateresponse.json();
@@ -1006,7 +1006,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     
         try {
             // Request data from the API to get the user's notifications
-            const response = await fetch(`${IP}/getnotifications?userID=${userID}`);
+            const response = await fetch(`http://${IP}:8081/getnotifications?userID=${userID}`);
             if (!response.ok) throw new Error('Failed to fetch user data from the API');
     
             // Parse the JSON response (assumes the response is directly an array of notifications)
@@ -1067,7 +1067,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     DeleteNotification.addEventListener('click', async () => {
                         try {
                             // Send DELETE request to the server to remove the notification
-                            const response = await fetch(`${IP}/deletenotification?userID=${userID}&ID=${ID}`, {
+                            const response = await fetch(`http://${IP}:8081/deletenotification?userID=${userID}&ID=${ID}`, {
                                 method: 'DELETE',
                             });
     
@@ -1117,7 +1117,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         document.getElementById('confirmYes').addEventListener('click', function() {
             // Proceed with the action if user confirms
             const stationID = localStorage.getItem('stationID'); // Ensure stationID is available
-            const url = `${IP}/stationProcess?stationID=${stationID}&chargeStatuse=stop`;
+            const url = `http://${IP}:8081/stationProcess?stationID=${stationID}&chargeStatuse=stop`;
     
             fetch(url)
                 .then(response => {
@@ -1150,7 +1150,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     
 
     function makePayment(stationID) {
-        const url = `${IP}/payment?stationID=${stationID}`;
+        const url = `http://${IP}:8081/payment?stationID=${stationID}`;
         
         // Use fetch to send GET request to the server for payment
         fetch(url)
@@ -1189,7 +1189,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     
     // Function to check if the stationID is valid
     function checkStationID(stationID) {
-        const url = `${IP}/checking?stationID=${stationID}`;
+        const url = `http://${IP}:8081/checking?stationID=${stationID}`;
         return fetch(url)
             .then(response => {
                 if (!response.ok) {
@@ -1209,7 +1209,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     // Function to connect stationID and userID
     function connectStationID(stationID, userID) {
-        const url = `${IP}/checking?stationID=${stationID}&userID=${userID}`;
+        const url = `http://${IP}:8081/checking?stationID=${stationID}&userID=${userID}`;
         return fetch(url)
             .then(response => {
                 if (!response.ok) {
@@ -1236,7 +1236,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     connectStationID(stationID, userID)
                         .then(success => {
                             if (success) {
-                                const url = `${IP}/stationProcess?stationID=${stationID}&chargeStatuse=charge`;
+                                const url = `http://${IP}:8081/stationProcess?stationID=${stationID}&chargeStatuse=charge`;
     
                                 fetch(url)
                                     .then(response => {
@@ -1302,7 +1302,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     document.getElementById('topup').addEventListener('click', async function () {
         const userID = localStorage.getItem('userID');
         try {
-            const response = await fetch(`${IP}/requestData?userID=${userID}`);
+            const response = await fetch(`http://${IP}:8081/requestData?userID=${userID}`);
             if (!response.ok) throw new Error('Failed to fetch user data from the API');
             
             let data = {};  // Initialize the data object
@@ -1373,7 +1373,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                             const BankNumber = document.getElementById('BankNumber').value;
 
                             // Make the request to save the bank info
-                            const bankInfoURL = `${IP}/bankinfo?userID=${userID}&BankHolder=${BankHolder}&BankNumber=${BankNumber}`;
+                            const bankInfoURL = `http://${IP}:8081/bankinfo?userID=${userID}&BankHolder=${BankHolder}&BankNumber=${BankNumber}`;
     
                             fetch(bankInfoURL, {
                                 method: 'GET',
