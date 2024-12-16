@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    const IP = "https://93ea-203-80-164-104.ngrok-free.app";
+    const IP = "localhost";
 
     let currentChart;
     const userID = localStorage.getItem('userID');
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Fetch and populate monthly data
     async function fetchRecordPowerMonthly() {
         try {
-            const response = await fetch(`${IP}/recordeData?userID=${userID}`);
+            const response = await fetch(`http://${IP}:8081/recordeData?userID=${userID}`);
             if (!response.ok){
                 return;
             }
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const monthlyDataArray = Array(12).fill(0);
 
                 for (let month = 1; month <= 12; month++) {
-                    const res = await fetch(`${IP}/recordeData?userID=${userID}&month=${month}&year=${latestYear}`);
+                    const res = await fetch(`http://${IP}:8081/recordeData?userID=${userID}&month=${month}&year=${latestYear}`);
                     if (res.ok) {
                         const data = await res.json();
                         const cost = parseFloat(data.cost);
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     async function fetchRecordPowerYearly() {
         try {
-            const response = await fetch(`${IP}/recordeData?userID=${userID}`);
+            const response = await fetch(`http://${IP}:8081/recordeData?userID=${userID}`);
             if (!response.ok){
                 return;
             }
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (Array.isArray(years)) {
                 const yearlyDataArray = Array(years.length).fill(0);
                 for (const year of years) {
-                    const res = await fetch(`${IP}/recordeData?userID=${userID}&year=${year}`);
+                    const res = await fetch(`http://${IP}:8081/recordeData?userID=${userID}&year=${year}`);
                     if (res.ok) {
                         const data = await res.json();
                         const cost = parseFloat(data.cost);
