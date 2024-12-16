@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginSubmitBtn = document.querySelector('#loginForm button[type="submit"]');
     const googleLoginbtn = document.getElementById('google-login-btn');
 
-    const IP = "192.168.3.5";
+    const IP = "http://192.168.3.5:8081";
 
     // Set initial styles for elements
     sidenavElement.style.right = "-40%";
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const password = document.getElementById('newPassword').value;
     
             // Send registration request to server
-            fetch(`http://${IP}:8081/register`, { // Use backticks for string interpolation
+            fetch(`${IP}/register`, { // Use backticks for string interpolation
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
     
-            fetch(`http://${IP}:8081/login`, {
+            fetch(`${IP}/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
