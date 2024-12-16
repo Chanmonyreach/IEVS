@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginSubmitBtn = document.querySelector('#loginForm button[type="submit"]');
     const googleLoginbtn = document.getElementById('google-login-btn');
 
-    const IP = "192.168.101.17";
+    const IP = "192.168.3.5";
 
     // Set initial styles for elements
     sidenavElement.style.right = "-40%";
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
     
-            fetch(`http://192.168.101.17:8081/login`, {
+            fetch(`http://${IP}:8081/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
